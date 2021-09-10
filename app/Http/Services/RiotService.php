@@ -28,7 +28,7 @@ class RiotService
         try {
             return $this->riotApi->getVersion4()->getSummoner()->getByName($summonerName, RegionEnum::LA1());
         } catch (Exception $e) {
-            return 0;
+            return null;
         }
     }
 
@@ -37,7 +37,7 @@ class RiotService
         try {
             return $this->riotApi->getVersion4()->getLeague()->getBySummonerId($summonerId, RegionEnum::LA1());
         } catch (Exception $e) {
-            return 0;
+            return null;
         }
     }
 }

@@ -2,6 +2,7 @@
     <table class="table-auto">
         <thead>
             <tr>
+                <th>Posición</th>
                 <th>Nombre</th>
                 <th>Nombre de invocador(Soloq Challenge)</th>
                 <th>Nivel</th>
@@ -11,8 +12,12 @@
             </tr>
         </thead>
         <tbody>
+            @php
+            $counter = 1;
+            @endphp
             @foreach ($summoners as $summoner )
             <tr>
+                <td>{{$counter}}</td>
                 {{-- {{$summoner}} --}}
                 <td>{{$summoner['name']}}</td>
                 <td>{{$summoner['summoner_name']}}</td>
@@ -26,6 +31,9 @@
                     {{$league!='' ? $league.'pl' : 'N/A'}}</td>
                 </td>
             </tr>
+            @php
+            $counter++;
+            @endphp
             @endforeach
         </tbody>
     </table>

@@ -26,7 +26,7 @@ class SummonersTableComponent extends Component
 
         $summonerParsed = $summoners->map(function ($summoner, $index) {
             $summonerInfo = $this->riotService->getSummonerInfo($summoner->summoner_name);
-            if ($summonerInfo instanceof SummonerDTO) {
+            if ($summonerInfo) {
                 $summonerLeague = $this->riotService->getLeagueInfo($summonerInfo->getId());
             } else {
                 $summonerLeague = new Collection();
@@ -42,7 +42,7 @@ class SummonersTableComponent extends Component
             }
             return $summoner->toArray() +
                 [
-                    'level' => $summonerInfo->getSummonerLevel(),
+                    'level' => $summonerInfo?->getSummonerLevel(),
                     'tier' => $soloQueue?->getTier(),
                     'rank' => $soloQueue?->getRank(),
                     'points' =>  $soloQueue?->getLeaguePoints()
