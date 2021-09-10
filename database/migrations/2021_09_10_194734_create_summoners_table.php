@@ -15,6 +15,7 @@ class CreateSummonersTable extends Migration
     {
         Schema::create('summoners', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('summoner_name');
             $table->string('twitch_channel');
             $table->string('main_role');
