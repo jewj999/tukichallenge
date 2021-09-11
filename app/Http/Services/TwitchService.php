@@ -65,7 +65,30 @@ class TwitchService
 
             if ($response) {
                 $summoner->update([
-                    'twitch_id' => $response->data[0]->id
+                    'twitch_id' => $response->data[0]->id,
+                    'twitch_profile_img' => $response->data[0]->profile_image_url,
+                ]);
+            }
+        });
+    }
+
+    public function fetchStreamStatus()
+    {
+        $summoners = Summoner::select(['id', 'twitch_id'])
+            ->whereNotNull('twitch_id')
+            ->where(DB::raw('LOWER(twitch_channel)'), 'LIKE', '%twitch%')
+            ->get();
+
+        $summoners->each(function (Summoner $summoner) {
+            $response = $this->makeRequest('GET', 'helix/streams', [
+                'query' => [
+                    'user_id' => $summoner->twitch_id
+                ]
+            ]);
+
+            if ($response) {
+                $summoner->update([
+                    'twitch_stream_status' => $response->data ? true : false,
                 ]);
             }
         });
