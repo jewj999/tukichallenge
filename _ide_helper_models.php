@@ -49,19 +49,27 @@ namespace App\Models{
  * @property string $twitch_channel
  * @property string|null $main_role
  * @property string|null $summoner_id
+ * @property int|null $level
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $twitch_id
+ * @property string|null $twitch_profile_img
+ * @property bool|null $twitch_stream_status
  * @property-read \App\Models\LeagueInfo|null $leagueInfo
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner query()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereMainRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereSummonerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereSummonerName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereTwitchChannel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereTwitchId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereTwitchProfileImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereTwitchStreamStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereUpdatedAt($value)
  */
 	class Summoner extends \Eloquent {}

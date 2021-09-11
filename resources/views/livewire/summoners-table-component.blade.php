@@ -1,13 +1,14 @@
 <div
     class="flex flex-col items-center justify-center w-10/12 mx-auto bg-blue-gray-900 rounded-md p-5 border-collapse shadow-2xl ring-offset-purple-600 bg-blend-darken">
     <div class="py-4">
-        <input type="text" wire:model.debounce.500ms="search" class="bg-blue-gray-600 py-2 px-6 focus:outline-none focus:ring focus:border-red-500 text-yellow-400"
-            placeholder="Buscar..." >
+        <input type="text" wire:model.debounce.500ms="search"
+            class="bg-blue-gray-600 py-2 px-6 focus:outline-none focus:ring focus:border-red-500 text-yellow-400"
+            placeholder="Buscar...">
     </div>
     <table class=" w-full mx-auto rounded-sm text-gray-300 pt-2">
         <thead>
             <x-table-row>
-                <x-table-cell th="true"></x-table-cell>
+                <x-table-cell th="true" class=""></x-table-cell>
                 <x-table-cell th="true" class="w-48">Streamer</x-table-cell>
                 <x-table-cell th="true">Cuenta</x-table-cell>
                 <x-table-cell th="true">Nivel</x-table-cell>
@@ -16,6 +17,7 @@
                 <x-table-cell th="true">Victorias</x-table-cell>
                 <x-table-cell th="true">Derrotas</x-table-cell>
                 <x-table-cell th="true">Winrate</x-table-cell>
+                <x-table-cell th="true">OPGG</x-table-cell>
             </x-table-row>
         </thead>
         <tbody>
@@ -24,12 +26,36 @@
             @endphp
             @foreach ($summoners as $summoner )
             <x-table-row>
-                <x-table-cell>{{$counter}}</x-table-cell>
-                <x-table-cell>{{$summoner->name}}</x-table-cell>
+                <x-table-cell>
+                    <div class="mr-5">
+                        {{$counter}}
+                    </div>
+                </x-table-cell>
+                <x-table-cell>
+                    <div class="flex items-center">
+                        <div class="mr-3">
+                            @if ($summoner->twitch_profile_img)
+                            <img class="w-10 h-10 rounded-full mx-auto" src="{{$summoner->twitch_profile_img}}">
+                            @else
+                            <div class="w-10 h-10 rounded-full mx-auto bg-blue-gray-700"></div>
+                            @endif
+
+                        </div>
+                        {{$summoner->name}}
+                    </div>
+                </x-table-cell>
                 <x-table-cell>{{$summoner->summoner_name}}</x-table-cell>
                 <x-table-cell>{{$summoner->level}}</x-table-cell>
                 <x-table-cell class=" text-purple-800 text-center">
-                    <div class="flex justify-center">
+                    <div class="flex justify-center items-center ">
+                        @if ($summoner->twitch_stream_status)
+                        <span class="w-2 h-2 rounded-full bg-green-500 mr-2">
+                        </span>
+                        @else
+                        <span class="w-2 h-2 rounded-full bg-red-500 mr-2">
+                        </span>
+                        @endif
+
                         <a href="https://{{$summoner->twitch_channel}}" target="blank">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path class="fill-current"
@@ -63,6 +89,14 @@
                     <span class="">
                         {{ $percentage }} %
                     </span>
+                </x-table-cell>
+                <x-table-cell>
+                    <div class="flex items-center justify-center">
+                        <a href="https://lan.op.gg/summoner/userName={{$summoner->summoner_name}}" target="blank">
+                            <img src="https://opgg-static.akamaized.net/images/gnb/svg/00-opgglogo.svg" alt=""
+                                class="w-12 fill-current bg-blue-600 p-1 rounded-lg">
+                        </a>
+                    </div>
                 </x-table-cell>
             </x-table-row>
             @php
