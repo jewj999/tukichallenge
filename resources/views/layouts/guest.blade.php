@@ -19,10 +19,18 @@
 </head>
 
 <body class="bg-blue-gray-800">
-    <div class="flex justify-center items-center">
-        <img src="/images/tuki.png" alt="Tuki Logo" class="w-3/12">
+    <div class="grid grid-cols-3">
+        <div class="flex justify-center items-center">
+            <img src="/images/NDB.png" alt="Tuki Logo">
+        </div>
+        <div class="flex justify-center items-center">
+            <img src="/images/tuki.png" alt="Tuki Logo">
+        </div>
+        <div class="flex justify-center items-center">
+            <img src="/images/Kaspersky.png" alt="Tuki Logo">
+        </div>
     </div>
-    <div class="font-sans text-gray-900 antialiased container mx-auto">
+    <div class="font-sans text-gray-900 antialiased container mx-auto -mt-12">
         {{ $slot }}
     </div>
     @livewireScripts
