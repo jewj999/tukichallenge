@@ -14,7 +14,8 @@ class Summoner extends Model
         'twitch_channel',
         'main_role',
         'summoner_id',
-        'level'
+        'level',
+        'twitch_id'
     ];
 
     use HasFactory;
