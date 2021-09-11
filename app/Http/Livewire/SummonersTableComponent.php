@@ -6,7 +6,9 @@ use App\Enums\Rank;
 use App\Enums\Tier;
 use App\Http\Services\RiotService;
 use App\Models\Summoner;
+use DB;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Riot\DTO\SummonerDTO;
 
@@ -14,6 +16,7 @@ class SummonersTableComponent extends Component
 {
 
     public Collection $summonersInfo;
+    public string $search = '';
 
     public function __construct()
     {
@@ -21,18 +24,34 @@ class SummonersTableComponent extends Component
     }
     public function render()
     {
-        $summoners = Summoner::with('leagueInfo')->get()
-            ->sortByDesc(function (Summoner $summoner) {
-                return Tier::fromKey($summoner->leagueInfo?->tier ?? 'IRON');
-            })->groupBy(function (Summoner $summoner) {
+        $summoners = Summoner::where(DB::raw('LOWER(summoner_name)'), 'LIKE', '%' . Str::lower($this->search) . '%')
+            ->orWhere(DB::raw('LOWER(name)'), 'LIKE', '%' . Str::lower($this->search) . '%')
+            ->with('leagueInfo')->get();
+
+        return view('livewire.summoners-table-component', ['summoners' => $this->orderByTier($summoners)]);
+    }
+
+    private function orderByTier(Collection $summoners)
+    {
+        return $summoners->groupBy([
+            function (Summoner $summoner) {
                 return $summoner->leagueInfo?->tier ?? 'IRON';
-            })->map(function (Collection $tier) {
-                return $tier->sortByDesc(function (Summoner $summoner) {
-                    return Rank::fromKey($summoner->leagueInfo?->rank ?? 'IIII');
+            },
+            function (Summoner $summoner) {
+                return $summoner->leagueInfo?->rank ?? 'IIII';
+            }
+        ])->map(function (Collection $tier) {
+            return $tier->map(function (Collection $rank) {
+                return $rank->sortByDesc(function (Summoner $summoner) {
+                    return $summoner->leagueInfo?->league_points ?? 0;
                 });
             })->collapse();
-
-        // dd($summoners);
-        return view('livewire.summoners-table-component', ['summoners' => $summoners]);
+        })->map(function (Collection $rank, $index) {
+            return $rank->sortByDesc(function (Summoner $summoner) {
+                return Rank::fromKey($summoner->leagueInfo?->rank ?? 'IIII');
+            });
+        })->sortByDesc(function (Collection $c, $index) {
+            return Tier::fromKey($index);
+        })->collapse();
     }
 }

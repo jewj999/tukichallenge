@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<x-guest-layout>
+    @livewire('summoners-table-component')
+</x-guest-layout>
+
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -11,15 +15,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
 
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
+    <style></style>
 </head>
 
-<body class="antialiased">
-    @livewire('summoners-table-component')
+<body class="antialiased bg-blue-800">
+
 </body>
 
-</html>
+</html> --}}
