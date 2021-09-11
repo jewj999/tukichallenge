@@ -17,6 +17,7 @@ module.exports = {
             },
             colors: {
                 "blue-gray": colors.blueGray,
+                cyan: colors.cyan,
             },
         },
     },

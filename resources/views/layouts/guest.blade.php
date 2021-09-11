@@ -33,7 +33,21 @@
     <div class="font-sans text-gray-900 antialiased container mx-auto -mt-12">
         {{ $slot }}
     </div>
-    @livewireScripts
+    <footer>
+        <div
+            class=" text-blue-gray-500 my-6 flex items-center justify-center w-10/12 mx-auto bg-blue-gray-900 rounded-md p-5 border-collapse shadow-2xl ring-offset-purple-600 bg-blend-darken">
+            <span>© Copyright 2021</span>
+            <span class="hover:text-yellow-900 text-yellow-500">
+                <a href="/">
+                    Tuki Challenge
+                </a></span>.
+            <span class="">Todos los derechos reservados. Desarrollado por
+                <a class="text-yellow-500" href="https://jsonnan.com">
+                    Jasson López
+                </a>
+            </span>
+        </div>
+    </footer> @livewireScripts
 </body>
 
 </html>
