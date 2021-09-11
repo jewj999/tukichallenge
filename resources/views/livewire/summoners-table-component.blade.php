@@ -9,6 +9,9 @@
                 <th>Canal de twitch</th>
                 <th>Rol</th>
                 <th>Elo</th>
+                <th>Victorias</th>
+                <th>Derrotas</th>
+                <th>% De victorias</th>
             </tr>
         </thead>
         <tbody>
@@ -19,16 +22,19 @@
             <tr>
                 <td>{{$counter}}</td>
                 {{-- {{$summoner}} --}}
-                <td>{{$summoner['name']}}</td>
-                <td>{{$summoner['summoner_name']}}</td>
-                <td>{{$summoner['level']}}</td>
-                <td>{{$summoner['twitch_channel']}}</td>
-                <td>{{$summoner['main_role']}}</td>
+                <td>{{$summoner->name}}</td>
+                <td>{{$summoner->summoner_name}}</td>
+                <td>{{$summoner->level}}</td>
+                <td>{{$summoner->twitch_channel}}</td>
+                <td>{{$summoner->main_role}}</td>
+                <td>{{$summoner->leagueInfo?->tier}} {{$summoner->leagueInfo?->rank}}
+                    {{$summoner->leagueInfo?->league_points ?? 0}}pl</td>
+                <td>{{$summoner->leagueInfo?->wins}}</td>
+                <td>{{$summoner->leagueInfo?->losses}}</td>
                 @php
-                $league = Str::of($summoner['tier'] .' '. $summoner['rank'].' '. $summoner['points'])->trim();
+                $total = $summoner->leagueInfo?->wins + $summoner->leagueInfo?->losses;
                 @endphp
-                <td>
-                    {{$league!='' ? $league.'pl' : 'N/A'}}</td>
+                <td>{{$total ? round( ((100 * $summoner->leagueInfo->wins) / $total), 2) : 0 }}
                 </td>
             </tr>
             @php

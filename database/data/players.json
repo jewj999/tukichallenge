@@ -7,6 +7,12 @@
             "main_role": "N/A"
         },
         {
+            "name": "Masorco",
+            "summoner_name": "secret TTQ jg",
+            "twitch_channel": "twitch.tv/masorco",
+            "main_role": "N/A"
+        },
+        {
             "name": "Mercy",
             "summoner_name": "Tilin GAP",
             "twitch_channel": "twitch.tv/mercyplaystw",
@@ -238,6 +244,12 @@
             "name": "JimRising",
             "summoner_name": "JimRising",
             "twitch_channel": "twitch.tv/jimrsng",
+            "main_role": "N/A"
+        },
+        {
+            "name": "Manzanoides",
+            "summoner_name": "ASTROMANZANA99",
+            "twitch_channel": "twitch.tv/Manzanoides",
             "main_role": "N/A"
         }
     ]

@@ -12,15 +12,46 @@
 
 namespace App\Models{
 /**
+ * App\Models\LeagueInfo
+ *
+ * @property int $id
+ * @property int $summoner_id
+ * @property string $tier
+ * @property string $rank
+ * @property int $league_points
+ * @property int $wins
+ * @property int $losses
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo query()
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereLeaguePoints($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereLosses($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereRank($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereSummonerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereTier($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LeagueInfo whereWins($value)
+ */
+	class LeagueInfo extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Summoner
  *
  * @property int $id
  * @property string $name
  * @property string $summoner_name
  * @property string $twitch_channel
- * @property string $main_role
+ * @property string|null $main_role
+ * @property string|null $summoner_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\LeagueInfo|null $leagueInfo
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner query()
@@ -28,6 +59,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereMainRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereSummonerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereSummonerName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereTwitchChannel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereUpdatedAt($value)

@@ -16,9 +16,11 @@ class CreateSummonersTable extends Migration
         Schema::create('summoners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('summoner_name');
+            $table->string('summoner_name')->unique();
             $table->string('twitch_channel');
-            $table->string('main_role');
+            $table->string('main_role')->nullable();
+            $table->string('summoner_id')->nullable();
+            $table->integer('level')->nullable();
             $table->timestamps();
         });
     }
