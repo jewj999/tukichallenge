@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->job(new FetchSummonersIds)->everyFiveMinutes();
-        // $schedule->job(new FetchSummonersData)->everyMinute();
+        $schedule->job(new FetchSummonersIds)->everyFiveMinutes();
+        $schedule->job(new FetchSummonersData)->everyMinute();
         $schedule->job(new FetchSummonerMatchData)->everyTwoMinutes();
     }
 
