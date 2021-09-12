@@ -9,11 +9,11 @@
         <thead>
             <x-table-row class="text-left">
                 <x-table-cell th="true" class="w-14"></x-table-cell>
-                <x-table-cell th="true" class="w-44">Streamer</x-table-cell>
-                <x-table-cell th="true" class="w-20">Stream</x-table-cell>
+                <x-table-cell th="true" class="w-40">Streamer</x-table-cell>
+                <x-table-cell th="true" class="w-20 text-center">Stream</x-table-cell>
+                <x-table-cell th="true" class="w-20 text-center">Partida</x-table-cell>
                 <x-table-cell th="true" class="w-48">Cuenta</x-table-cell>
                 <x-table-cell th="true" class="w-12 text-center">Nivel</x-table-cell>
-                <x-table-cell th="true" class="w-20 text-center">Partida</x-table-cell>
                 <x-table-cell th="true" class="w-32 text-center">Elo</x-table-cell>
                 <x-table-cell th="true" class="w-20 text-center">Victorias</x-table-cell>
                 <x-table-cell th="true" class="w-20 text-center">Derrotas</x-table-cell>
@@ -49,7 +49,7 @@
                 </x-table-cell>
                 <x-table-cell
                     class="{{Str::of($summoner->twitch_channel)->contains('twitch') ? 'text-purple-800'  : 'text-blue-800'}} text-center">
-                    <div class="flex items-center ">
+                    <div class="flex items-center justify-center">
                         @if ($summoner->twitch_stream_status)
                         <span class="w-2 h-2 rounded-full bg-green-400 mr-2">
                         </span>
@@ -77,9 +77,6 @@
 
                     </div>
                 </x-table-cell>
-                <x-table-cell><span>{{$summoner->summoner_name}}</span></x-table-cell>
-                <x-table-cell class="text-center"><span class="text-center">{{$summoner->level}}</span></x-table-cell>
-
                 <x-table-cell>
                     <div class="flex justify-center items-center">
                         @if ($summoner->in_match)
@@ -93,6 +90,10 @@
                         @endif
                     </div>
                 </x-table-cell>
+                <x-table-cell><span>{{$summoner->summoner_name}}</span></x-table-cell>
+                <x-table-cell class="text-center"><span class="text-center">{{$summoner->level}}</span></x-table-cell>
+
+
                 <x-table-cell>
                     <div class="flex justify-center items-center">
                         <x-ranked-emblem :tier="$summoner->leagueInfo?->tier ?? 'IRON'" />
