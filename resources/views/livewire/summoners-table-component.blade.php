@@ -80,12 +80,12 @@
                 <x-table-cell>
                     <div class="flex justify-center items-center">
                         @if ($summoner->in_match)
-                        <span class="text-green-500">
-                            En partida
+                        <span class="bg-green-500 h-5 w-5 rounded-full">
+
                         </span>
                         @else
-                        <span class="text-red-500">
-                            AFK
+                        <span class="bg-blue-gray-700 h-5 w-5 rounded-full">
+
                         </span>
                         @endif
                     </div>
