@@ -18,6 +18,7 @@ class Summoner extends Model
         'twitch_id',
         'twitch_profile_img',
         'twitch_stream_status',
+        'in_match'
     ];
 
     use HasFactory;

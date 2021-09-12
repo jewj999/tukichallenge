@@ -13,6 +13,7 @@
                 <x-table-cell th="true">Cuenta</x-table-cell>
                 <x-table-cell th="true">Nivel</x-table-cell>
                 <x-table-cell th="true">Twitch</x-table-cell>
+                <x-table-cell th="true">En partida</x-table-cell>
                 <x-table-cell th="true">Elo</x-table-cell>
                 <x-table-cell th="true">Victorias</x-table-cell>
                 <x-table-cell th="true">Derrotas</x-table-cell>
@@ -50,7 +51,7 @@
                     class="{{Str::of($summoner->twitch_channel)->contains('twitch') ? 'text-purple-800'  : 'text-blue-800'}} text-center">
                     <div class="flex justify-center items-center ">
                         @if ($summoner->twitch_stream_status)
-                        <span class="w-2 h-2 rounded-full bg-green-400 mr-2" >
+                        <span class="w-2 h-2 rounded-full bg-green-400 mr-2">
                         </span>
                         @else
                         <span class="w-2 h-2 rounded-full bg-blue-gray-700 mr-2">
@@ -74,6 +75,19 @@
                         @endif
 
 
+                    </div>
+                </x-table-cell>
+                <x-table-cell>
+                    <div class="flex justify-center items-center">
+                        @if ($summoner->in_match)
+                        <span class="text-green-500">
+                            En partida
+                        </span>
+                        @else
+                        <span class="text-red-500">
+                            AFK
+                        </span>
+                        @endif
                     </div>
                 </x-table-cell>
                 <x-table-cell>

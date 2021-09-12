@@ -40,4 +40,13 @@ class RiotService
             return null;
         }
     }
+
+    public function getMatchInfo(string $summonerId)
+    {
+        try {
+            return $this->riotApi->getVersion4()->getSpectator()->getActiveGamesBySummonerId($summonerId, RegionEnum::LA1());
+        } catch (Exception $e) {
+            return null;
+        }
+    }
 }

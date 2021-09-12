@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\FetchSummonerMatchData;
 use App\Jobs\FetchSummonersData;
 use App\Jobs\FetchSummonersIds;
 use Illuminate\Console\Scheduling\Schedule;
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(new FetchSummonersIds)->everyFiveMinutes();
         $schedule->job(new FetchSummonersData)->everyMinute();
+        $schedule->job(new FetchSummonerMatchData)->everyThreeMinutes();
     }
 
     /**
