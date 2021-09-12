@@ -36,6 +36,7 @@ class FetchSummonerMatchData implements ShouldQueue
         $summoners = Summoner::select(['id', 'summoner_name', 'summoner_id'])->get();
 
         $summoners->each(function (Summoner $summoner) use ($riotService) {
+            sleep(1);
             if (!$summoner->summoner_id) {
                 return true;
             }

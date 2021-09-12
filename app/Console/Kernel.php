@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(new FetchSummonersIds)->everyFiveMinutes();
         $schedule->job(new FetchSummonersData)->everyMinute();
-        $schedule->job(new FetchSummonerMatchData)->everyMinute();
+        $schedule->job(new FetchSummonerMatchData)->everyTwoMinutes();
     }
 
     /**
