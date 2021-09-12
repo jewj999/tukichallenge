@@ -33,7 +33,9 @@ class FetchSummonerMatchData implements ShouldQueue
     public function handle()
     {
         $riotService = new RiotService();
-        $summoners = Summoner::select(['id', 'summoner_name', 'summoner_id'])->get();
+        $summoners = Summoner::select(['id', 'summoner_name', 'summoner_id'])
+            ->where('twitch_stream_status', '=', true)
+            ->get();
 
         $summoners->each(function (Summoner $summoner) use ($riotService) {
             sleep(1);
