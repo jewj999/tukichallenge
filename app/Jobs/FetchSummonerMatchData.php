@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Log;
 
 class FetchSummonerMatchData implements ShouldQueue
 {
@@ -33,10 +34,13 @@ class FetchSummonerMatchData implements ShouldQueue
     public function handle()
     {
         $riotService = new RiotService();
-        $summoners = Summoner::select(['id', 'summoner_name', 'summoner_id'])
-            ->where('twitch_stream_status', '=', true)
+        $summoners = Summoner::online()
+            ->inMatch()
+            ->onFacebook()
+            ->select(['id', 'summoner_name', 'summoner_id'])
             ->get();
 
+        Log::info($summoners->pluck('name'));
         $summoners->each(function (Summoner $summoner) use ($riotService) {
             sleep(1);
             if (!$summoner->summoner_id) {

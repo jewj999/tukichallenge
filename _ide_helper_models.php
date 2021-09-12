@@ -55,12 +55,17 @@ namespace App\Models{
  * @property int|null $twitch_id
  * @property string|null $twitch_profile_img
  * @property bool|null $twitch_stream_status
+ * @property bool $in_match
  * @property-read \App\Models\LeagueInfo|null $leagueInfo
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner inMatch()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner onFacebook()
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner online()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner query()
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereInMatch($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereMainRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Summoner whereName($value)

@@ -23,16 +23,16 @@
 <body class="bg-blue-gray-800">
     <div class="grid grid-cols-3 ">
         <div class="flex justify-center items-center">
-            <img src="/images/NDB.png" alt="NDB Logo" class="w-6/12">
+            <img src="/images/NDB.png" alt="NDB Logo" class="sm:w-8/12 lg:w-6/12">
         </div>
         <div class="flex justify-center items-center">
-            <img src="/images/tuki.png" alt="Tuki Logo" class="w-8/12">
+            <img src="/images/tuki.png" alt="Tuki Logo" class="sm:w-8/12 lg:w-8/12">
         </div>
         <div class="flex justify-center items-center">
-            <img src="/images/Kaspersky.png" alt="Kaspersky Logo" class="w-8/12">
+            <img src="/images/Kaspersky.png" alt="Kaspersky Logo" class="lg:w-8/12 sm:w-8/12">
         </div>
     </div>
-    <div class="font-sans text-gray-900 antialiased container mx-auto -mt-12">
+    <div class="font-sans text-gray-900 antialiased mx-auto lg:-mt-12">
         {{ $slot }}
     </div>
     <footer>

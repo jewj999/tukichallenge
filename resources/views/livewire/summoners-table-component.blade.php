@@ -1,24 +1,24 @@
 <div
-    class="flex flex-col items-center justify-center w-10/12 mx-auto bg-blue-gray-900 rounded-md p-5 border-collapse shadow-2xl ring-offset-purple-600 bg-blend-darken">
-    <div class="py-4">
+    class="overflow-x-auto flex flex-col items-center justify-center w-10/12 mx-auto bg-blue-gray-900 rounded-md p-5 border-collapse shadow-2xl ring-offset-purple-600 bg-blend-darken">
+    <div class="py-4 overflow-x-auto">
         <input type="text" wire:model.debounce.500ms="search"
             class="bg-blue-gray-600 py-2 px-6 focus:outline-none focus:ring focus:border-red-500 text-yellow-400"
             placeholder="Buscar...">
     </div>
-    <table class=" w-full mx-auto rounded-sm text-gray-300 pt-2">
+    <table class="table-fixed w-full mx-auto rounded-sm text-gray-300 pt-2 text-md">
         <thead>
-            <x-table-row>
-                <x-table-cell th="true" class=""></x-table-cell>
-                <x-table-cell th="true" class="w-48">Streamer</x-table-cell>
-                <x-table-cell th="true">Cuenta</x-table-cell>
-                <x-table-cell th="true">Nivel</x-table-cell>
-                <x-table-cell th="true">Twitch</x-table-cell>
-                <x-table-cell th="true">En partida</x-table-cell>
-                <x-table-cell th="true">Elo</x-table-cell>
-                <x-table-cell th="true">Victorias</x-table-cell>
-                <x-table-cell th="true">Derrotas</x-table-cell>
-                <x-table-cell th="true">Winrate</x-table-cell>
-                <x-table-cell th="true">OPGG</x-table-cell>
+            <x-table-row class="text-left">
+                <x-table-cell th="true" class="w-14"></x-table-cell>
+                <x-table-cell th="true" class="w-44">Streamer</x-table-cell>
+                <x-table-cell th="true" class="w-20">Stream</x-table-cell>
+                <x-table-cell th="true" class="w-48">Cuenta</x-table-cell>
+                <x-table-cell th="true" class="w-12 text-center">Nivel</x-table-cell>
+                <x-table-cell th="true" class="w-20 text-center">Partida</x-table-cell>
+                <x-table-cell th="true" class="w-32 text-center">Elo</x-table-cell>
+                <x-table-cell th="true" class="w-20 text-center">Victorias</x-table-cell>
+                <x-table-cell th="true" class="w-20 text-center">Derrotas</x-table-cell>
+                <x-table-cell th="true" class="w-20 text-center">Winrate</x-table-cell>
+                <x-table-cell th="true" class="w-20 text-center">OPGG</x-table-cell>
             </x-table-row>
         </thead>
         <tbody>
@@ -26,30 +26,30 @@
             $counter = 1;
             @endphp
             @foreach ($summoners as $summoner )
-            <x-table-row>
-                <x-table-cell>
-                    <div class="mr-5">
+            <x-table-row class="{{$counter % 2 != 0 ? 'bg-blue-gray-800' : ''}}">
+                <x-table-cell class="text-center">
+                    <span class="">
                         {{$counter}}
-                    </div>
+                    </span>
                 </x-table-cell>
                 <x-table-cell>
                     <div class="flex items-center">
                         <div class="mr-3">
                             @if ($summoner->twitch_profile_img)
-                            <img class="w-10 h-10 rounded-full mx-auto" src="{{$summoner->twitch_profile_img}}">
+                            <img class="w-8 h-8 rounded-full mx-auto" src="{{$summoner->twitch_profile_img}}">
                             @else
-                            <div class="w-10 h-10 rounded-full mx-auto bg-blue-gray-700"></div>
+                            <div class="w-8 h-8 rounded-full mx-auto bg-blue-gray-700"></div>
                             @endif
 
                         </div>
-                        {{$summoner->name}}
+                        <span class="w-8/12 text-left">
+                            {{$summoner->name}}
+                        </span>
                     </div>
                 </x-table-cell>
-                <x-table-cell>{{$summoner->summoner_name}}</x-table-cell>
-                <x-table-cell>{{$summoner->level}}</x-table-cell>
                 <x-table-cell
                     class="{{Str::of($summoner->twitch_channel)->contains('twitch') ? 'text-purple-800'  : 'text-blue-800'}} text-center">
-                    <div class="flex justify-center items-center ">
+                    <div class="flex items-center ">
                         @if ($summoner->twitch_stream_status)
                         <span class="w-2 h-2 rounded-full bg-green-400 mr-2">
                         </span>
@@ -77,6 +77,9 @@
 
                     </div>
                 </x-table-cell>
+                <x-table-cell><span>{{$summoner->summoner_name}}</span></x-table-cell>
+                <x-table-cell class="text-center"><span class="text-center">{{$summoner->level}}</span></x-table-cell>
+
                 <x-table-cell>
                     <div class="flex justify-center items-center">
                         @if ($summoner->in_match)
@@ -97,13 +100,13 @@
                         {{$summoner->leagueInfo?->league_points ?? 0}}pl
                     </div>
                 </x-table-cell>
-                <x-table-cell>
-                    <span class="text-green-500">
+                <x-table-cell class="text-center">
+                    <span class="text-green-500 text-center">
                         {{$summoner->leagueInfo?->wins}}
                     </span>
                 </x-table-cell>
-                <x-table-cell>
-                    <span class="text-red-500">
+                <x-table-cell class="text-center">
+                    <span class="text-red-500 text-center">
                         {{$summoner->leagueInfo?->losses}}
                     </span>
                 </x-table-cell>
@@ -111,12 +114,25 @@
                 $total = $summoner->leagueInfo?->wins + $summoner->leagueInfo?->losses;
                 $percentage = $total ? round( ((100 * $summoner->leagueInfo->wins) / $total), 2) : 0
                 @endphp
-                <x-table-cell>
-                    <span class="">
-                        {{ $percentage }} %
-                    </span>
+                <x-table-cell class="text-center">
+                    @if ($percentage > 0 && $percentage <=45) <span class="text-red-600">
+                        {{ $percentage }}%
+                        </span>
+
+                        @elseif ($percentage > 45 && $percentage <= 65) <span class="text-yellow-700 ">
+                            {{ $percentage }}%
+                            </span>
+
+                            @elseif ($percentage > 65 && $percentage <=75) <span class="text-yellow-500">
+                                {{ $percentage }}%
+                                </span>
+                                @elseif ($percentage > 75)
+                                <span class="text-green-600">
+                                    {{ $percentage }}%
+                                </span>
+                                @endif
                 </x-table-cell>
-                <x-table-cell>
+                <x-table-cell class="text-center">
                     <div class="flex items-center justify-center">
                         <a href="https://lan.op.gg/summoner/userName={{$summoner->summoner_name}}" target="blank">
                             <img src="https://opgg-static.akamaized.net/images/gnb/svg/00-opgglogo.svg" alt=""

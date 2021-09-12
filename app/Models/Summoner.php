@@ -27,4 +27,19 @@ class Summoner extends Model
     {
         return $this->hasOne(LeagueInfo::class);
     }
+
+    public function scopeOnline($query)
+    {
+        return $query->where('twitch_stream_status', '=', true, 'or');
+    }
+
+    public function scopeInMatch($query)
+    {
+        return $query->where('in_match', '=', true, 'or');
+    }
+
+    public function scopeOnFacebook($query)
+    {
+        return $query->where('twitch_channel', 'NOT LIKE', '%twitch%', 'or');
+    }
 }

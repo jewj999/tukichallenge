@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Models\Summoner;
 use Exception;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Riot\API;
 use Riot\Connection;
 use Riot\Enum\RegionEnum;
