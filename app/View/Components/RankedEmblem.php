@@ -34,9 +34,10 @@ class RankedEmblem extends Component
                 'GOLD' => 'Emblem_Gold.png',
                 'PLATINUM' => 'Emblem_Platinum.png',
                 'DIAMOND' => 'Emblem_Diamond.png',
-                'MASTER ' => 'Emblem_Master.png',
+                'MASTER' => 'Emblem_Master.png',
                 'GRANDMASTER' => 'Emblem_Grandmaster.png',
                 'CHALLENGER' => 'Emblem_Challenger.png',
+                default => 'Emblem_Iron.png',
             }
         ]);
     }
