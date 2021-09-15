@@ -7,6 +7,7 @@ use App\Enums\Tier;
 use App\Http\Services\RiotService;
 use App\Models\Summoner;
 use DB;
+use File;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -17,10 +18,14 @@ class SummonersTableComponent extends Component
 
     public Collection $summonersInfo;
     public string $search = '';
+    public Collection $champions;
+    public string $dataDragonUrl;
 
     public function __construct()
     {
         $this->riotService = new RiotService();
+        $this->champions = collect(json_decode(File::get(database_path() . '/data/champion.json'), true));
+        $this->dataDragonUrl = config('riot.data_dragon_url');
     }
     public function render()
     {
@@ -53,5 +58,15 @@ class SummonersTableComponent extends Component
         })->sortByDesc(function (Collection $c, $index) {
             return Tier::fromKey($index);
         })->collapse();
+    }
+
+    public function getChampionSquareImageUrl($championId)
+    {
+        return $this->dataDragonUrl . 'img/champion/' . collect($this->champions['data'])->where('key', $championId)->first()['image']['full'];
+    }
+
+    public function getProfileIconUrl($profileIconId = 1)
+    {
+        return $this->dataDragonUrl . 'img/profileicon/' . $profileIconId . '.png';
     }
 }

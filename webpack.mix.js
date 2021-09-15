@@ -16,7 +16,7 @@ mix.js("resources/js/app.js", "public/js")
         require("postcss-import"),
         require("tailwindcss"),
     ])
-    .browserSync('soloqchallenge-lan.test')
+    .browserSync('tukichallenge.test')
     .disableNotifications();
 
 if (mix.inProduction()) {

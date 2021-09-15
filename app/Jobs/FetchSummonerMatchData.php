@@ -50,11 +50,13 @@ class FetchSummonerMatchData implements ShouldQueue
 
             if ($response) {
                 $summoner->update([
-                    'in_match' => true
+                    'in_match' => true,
+                    'champion_id' => $response->getParticipants()->where('getSummonerId', $summoner->summoner_id)->first()->getChampionId(),
                 ]);
             } else {
                 $summoner->update([
-                    'in_match' => false
+                    'in_match' => false,
+                    'champion_id' => null,
                 ]);
             }
         });

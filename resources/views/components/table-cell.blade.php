@@ -3,7 +3,7 @@
     {{$slot}}
 </th>
 @else
-<td class="py-4 {{$class}}">
+<td class="py-3 h-20 {{$class}}">
     {{$slot}}
 </td>
 @endif

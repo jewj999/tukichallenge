@@ -41,7 +41,8 @@ class FetchSummonersIds implements ShouldQueue
             if ($response) {
                 $summoner->update([
                     'summoner_id' => $response->getId(),
-                    'level' => $response->getSummonerLevel()
+                    'level' => $response->getSummonerLevel(),
+                    'profile_icon_id' => $response->getProfileIconId()
                 ]);
             }
         });

@@ -9,16 +9,18 @@
         <thead>
             <x-table-row class="text-left">
                 <x-table-cell th="true" class="w-14"></x-table-cell>
-                <x-table-cell th="true" class="w-40">Streamer</x-table-cell>
+                <x-table-cell th="true" class="w-32">Streamer</x-table-cell>
                 <x-table-cell th="true" class="w-20 text-center">Stream</x-table-cell>
                 <x-table-cell th="true" class="w-20 text-center">Partida</x-table-cell>
-                <x-table-cell th="true" class="w-48">Cuenta</x-table-cell>
-                <x-table-cell th="true" class="w-12 text-center">Nivel</x-table-cell>
-                <x-table-cell th="true" class="w-32 text-center">Elo</x-table-cell>
-                <x-table-cell th="true" class="w-20 text-center">Victorias</x-table-cell>
-                <x-table-cell th="true" class="w-20 text-center">Derrotas</x-table-cell>
-                <x-table-cell th="true" class="w-20 text-center">Winrate</x-table-cell>
-                <x-table-cell th="true" class="w-20 text-center">OPGG</x-table-cell>
+                <x-table-cell th="true" class="w-48"><span class="ml-6">Cuenta</span></x-table-cell>
+                {{-- <x-table-cell th="true" class="w-12 text-center">Nivel</x-table-cell> --}}
+                <x-table-cell th="true" class="w-24 text-center">Elo</x-table-cell>
+
+                <x-table-cell th="true" class="w-16 text-center">Partidas</x-table-cell>
+                <x-table-cell th="true" class="w-16 text-center">Victorias</x-table-cell>
+                <x-table-cell th="true" class="w-16 text-center">Derrotas</x-table-cell>
+                <x-table-cell th="true" class="w-16 text-center">Winrate</x-table-cell>
+                <x-table-cell th="true" class="w-16 text-center">OPGG</x-table-cell>
             </x-table-row>
         </thead>
         <tbody>
@@ -26,7 +28,7 @@
             $counter = 1;
             @endphp
             @foreach ($summoners as $summoner )
-            <x-table-row class="{{$counter % 2 != 0 ? 'bg-blue-gray-800' : ''}}">
+            <x-table-row class="h-20 {{$counter % 2 != 0 ? 'bg-blue-gray-800' : ''}}">
                 <x-table-cell class="text-center">
                     <span class="">
                         {{$counter}}
@@ -34,72 +36,79 @@
                 </x-table-cell>
                 <x-table-cell>
                     <div class="flex items-center">
-                        <div class="mr-3">
+                        <div class="mr-3 flex flex-col">
                             @if ($summoner->twitch_profile_img)
-                            <img class="w-8 h-8 rounded-full mx-auto" src="{{$summoner->twitch_profile_img}}">
+                            <img class="w-12 h-12 rounded-full mx-auto" src="{{$summoner->twitch_profile_img}}">
                             @else
-                            <div class="w-8 h-8 rounded-full mx-auto bg-blue-gray-700"></div>
+                            <div class="w-12 h-12 rounded-full mx-auto bg-blue-gray-700"></div>
                             @endif
-
                         </div>
-                        <span class="w-8/12 text-left">
-                            {{$summoner->name}}
-                        </span>
+                        <div class=" w-4/6 text-left">
+                            <span> {{$summoner->name}}</span>
+                        </div>
                     </div>
                 </x-table-cell>
-                <x-table-cell
-                    class="{{Str::of($summoner->twitch_channel)->contains('twitch') ? 'text-purple-800'  : 'text-blue-800'}} text-center">
-                    <div class="flex items-center justify-center">
-                        @if ($summoner->twitch_stream_status)
-                        <span class="w-2 h-2 rounded-full bg-green-400 mr-2">
-                        </span>
-                        @else
-                        <span class="w-2 h-2 rounded-full bg-blue-gray-700 mr-2">
-                        </span>
-                        @endif
-
-                        @if (Str::of($summoner->twitch_channel)->contains('twitch'))
+                <x-table-cell>
+                    <div class="h-full w-full flex flex-col items-center justify-end">
                         <a href="https://{{$summoner->twitch_channel}}" target="blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path class="fill-current"
-                                    d="M2.149 0l-1.612 4.119v16.836h5.731v3.045h3.224l3.045-3.045h4.657l6.269-6.269v-14.686h-21.314zm19.164 13.612l-3.582 3.582h-5.731l-3.045 3.045v-3.045h-4.836v-15.045h17.194v11.463zm-3.582-7.343v6.262h-2.149v-6.262h2.149zm-5.731 0v6.262h-2.149v-6.262h2.149z"
-                                    fill-rule="evenodd" clip-rule="evenodd" /></svg>
+                            <div class="flex flex-col justify-center items-center">
+                                @if (Str::of($summoner->twitch_channel)->contains('twitch'))
+                                <x-bi-twitch class="text-purple-800 w-7 h-7" />
+                                @else
+                                <x-bi-facebook class="text-blue-800 w-7 h-7" />
+                                @endif
+                                <div @class([ 'text-sm rounded-md mt-1' , 'bg-red-700'=>
+                                    $summoner->twitch_stream_status,
+                                    'bg-blue-gray-700' => !$summoner->twitch_stream_status
+                                    ])
+                                    ><span class="px-2">En vivo</span></div>
+                            </div>
                         </a>
-                        @else
-                        <a href="https://{{$summoner->twitch_channel}}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path class="fill-current"
-                                    d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
-                            </svg>
-                        </a>
-                        @endif
-
-
                     </div>
                 </x-table-cell>
                 <x-table-cell>
-                    <div class="flex justify-center items-center">
-                        @if ($summoner->in_match)
-                        <span class="bg-green-500 h-5 w-5 rounded-full">
-
-                        </span>
-                        @else
-                        <span class="bg-blue-gray-700 h-5 w-5 rounded-full">
-
-                        </span>
+                    <div class="flex flex-col justify-end items-center h-full w-full">
+                        @if ($summoner->in_match && $summoner->champion_id)
+                        <div class="w-7 h-7">
+                            <img src="{{$this->getChampionSquareImageUrl($summoner->champion_id)}}"
+                                alt="Champion Image">
+                        </div>
                         @endif
+                        <div @class([ 'text-sm rounded-md mt-1' , 'bg-green-700'=> $summoner->in_match,
+                            'bg-blue-gray-700' => !$summoner->in_match
+                            ])
+                            ><span class="px-2">En partida</span></div>
+                        {{-- <span
+                            class="h-5 w-5 rounded-full {{$summoner->in_match ? 'bg-green-500' : 'bg-blue-gray-700'}}">
+                        </span> --}}
                     </div>
                 </x-table-cell>
-                <x-table-cell><span>{{$summoner->summoner_name}}</span></x-table-cell>
-                <x-table-cell class="text-center"><span class="text-center">{{$summoner->level}}</span></x-table-cell>
+                <x-table-cell>
+                    <div class="ml-6 flex items-center">
+                        <div class="mr-3">
+                            <img class="w-10 h-10 rounded-full"
+                                src="{{$this->getProfileIconUrl($summoner->profile_icon_id ?? 685)}}" alt="">
+                        </div>
+                        <span>{{$summoner->summoner_name}}</span>
+                    </div>
+                </x-table-cell>
+
+                {{-- <x-table-cell class="text-center"><span class="text-center">{{$summoner->level}}</span>
+                </x-table-cell> --}}
 
 
                 <x-table-cell>
-                    <div class="flex justify-center items-center">
-                        <x-ranked-emblem :tier="$summoner->leagueInfo?->tier ?? 'IRON'" />
+                    <div class="flex items-center justify-center">
+                        <x-ranked-emblem :tier="$summoner->leagueInfo?->tier" />
                         {{$summoner->leagueInfo?->rank}}
                         {{$summoner->leagueInfo?->league_points ?? 0}}pl
                     </div>
+                </x-table-cell>
+
+                <x-table-cell class="text-center">
+                    <span class="text-green-600 text-center">
+                        {{($summoner->leagueInfo?->wins ?? 0) + ($summoner->leagueInfo?->losses ?? 0)}}
+                    </span>
                 </x-table-cell>
                 <x-table-cell class="text-center">
                     <span class="text-green-500 text-center">
